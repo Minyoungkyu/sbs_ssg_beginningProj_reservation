@@ -1,26 +1,25 @@
 package com.reservation.console;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import com.reservation.reserve.*;
 
 public class CLI {
 	static BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
 	static String userCommand;
 	
 	public static void CLIrun() throws IOException {
-		System.out.println("😉 예매 및 좌석 페이지입니다 😉\n" + ConsoleMessage.commandList + "\n\n명령어 입력대기: ");
+		System.out.print("😉 예매 및 좌석 페이지입니다 😉\n" + ConsoleMessage.commandList + "\n\n명령어 입력대기: ");
 		// 받은 명령어가 "exit"가 아니라면 계속해서 명령어 입력대기 상태를 반복.
 		while(!(userCommand = rd.readLine()).equals("exit")){
 			switch(userCommand){
-				case "seat.reserve": 
-					
+				case "reserve": 
+					ReservationServer.serverRun();
 					break;
 					
-				case "seat.cancel":
+				case "cancel":
 					break;
 					
-				case "seat.info":
+				case "info":
 					break;
 					
 				case "command.ls": // 명령어 리스트 보기.
