@@ -69,6 +69,6 @@ public class ReservationDAO {
 	}
 	public void selectSeat(int game_id, String seat) throws SQLException {
 		String sql = "SELECT * FROM reservation.games ORDER BY `dateAndTime` ASC;";
-		ResultSet rs = state.executeQuery(sql);
+		ResultSet rs = state.executeQuery(sql);		
 	}
 }

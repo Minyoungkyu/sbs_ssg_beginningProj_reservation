@@ -25,7 +25,6 @@ public class ReservationServer {
 			dao.showSeatList(game_id);
 			System.out.print("예매를 원하시는 좌석의 종류를 영문으로 입력하여 주십시오.(대소문자를 구분하지 않습니다.)\n\n좌석종류 입력: ");
 			String seat = rd.readLine().toLowerCase();
-			
 			// 좌석 선택.
 			dao.selectSeat(game_id, seat);
 
