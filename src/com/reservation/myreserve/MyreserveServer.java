@@ -1,15 +1,56 @@
 package com.reservation.myreserve;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+import com.reservation.cancel.CancelServer;
+import com.reservation.console.Coloring;
+import com.reservation.console.ConsoleUtil;
+import com.reservation.reserve.ReserveServer;
 import com.reservation.user.User;
 
 public class MyreserveServer {
 	static MyreserveDAO dao = new MyreserveDAO();
 
 	public static void serverRun() {
-		// TODO Auto-generated method stub
 		try {
-			// 예매한 정보들 리스트 보이기.
-			dao.showReservationList(User.getID());
+			BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
+
+			// 예매 정보 리스트 보이기.
+			boolean emptyReservation = dao.showReservationList(User.getID());
+
+			// 예매 정보가 없다면 예매 페이지 이동을 추천, 아니라면 commandList 보이기.
+			if(emptyReservation) {
+				System.out.println("예매 정보가 없습니다. 예매 페이지로 이동하시겠습니까? (Y/N)");
+				while(true) {
+					System.out.print(">>>");
+					String userAnswer = rd.readLine().toLowerCase();
+					if(userAnswer.equals("y")) {
+						ReserveServer.serverRun();
+						break;
+					} else if(userAnswer.equals("n")) {
+						ConsoleUtil.showCommand();
+						break;
+					} else {
+						Coloring.redOut("유효하지 않은 답변입니다. 다시 입력해주십시오.\n");
+					}
+				}
+			} else {
+				System.out.println("예매 취소 페이지로 이동하시겠습니까? (Y/N)");
+				while(true) {
+					System.out.print(">>>");
+					String userAnswer = rd.readLine().toLowerCase();
+					if(userAnswer.equals("y")) {
+						CancelServer.serverRun();
+						break;
+					} else if(userAnswer.equals("n")) {
+						ConsoleUtil.showCommand();
+						break;
+					} else {
+						Coloring.redOut("유효하지 않은 답변입니다. 다시 입력해주십시오.\n");
+					}
+				}
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

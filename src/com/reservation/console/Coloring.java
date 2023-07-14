@@ -1,6 +1,6 @@
 package com.reservation.console;
 
-public class ColorText {
+public class Coloring {
     public static final String red      = "\u001B[31m" ;
     public static final String green    = "\u001B[32m" ;
     public static final String yellow   = "\u001B[33m" ;
@@ -28,4 +28,24 @@ public class ColorText {
     public static void cyanOut(String text) {
     	System.out.println(cyan + text + exit);
     }
+    
+    public static String getRed(String text) {
+    	return Coloring.red + text + Coloring.exit;
+    }
+    public static String getGreen(String text) {
+    	return Coloring.green + text + Coloring.exit;
+    }
+    public static String getYellow(String text) {
+    	return Coloring.yellow + text + Coloring.exit;
+    }
+    public static String getBlue(String text) {
+    	return Coloring.blue + text + Coloring.exit;
+    }
+    public static String getPurple(String text) {
+    	return Coloring.purple + text + Coloring.exit;
+    }
+    public static String getCyan(String text) {
+    	return Coloring.cyan + text + Coloring.exit;
+    }
+
 }
