@@ -6,8 +6,8 @@ import java.io.InputStreamReader;
 import com.reservation.cancel.CancelServer;
 import com.reservation.console.Coloring;
 import com.reservation.console.ConsoleUtil;
+import com.reservation.data.user.User;
 import com.reservation.reserve.ReserveServer;
-import com.reservation.user.User;
 
 public class MyreserveServer {
 	static MyreserveDAO dao = new MyreserveDAO();
@@ -21,7 +21,7 @@ public class MyreserveServer {
 
 			// 예매 정보가 없다면 예매 페이지 이동을 추천, 아니라면 commandList 보이기.
 			if(emptyReservation) {
-				System.out.println("예매 정보가 없습니다. 예매 페이지로 이동하시겠습니까? (Y/N)");
+				Coloring.purpleOut("예매 정보가 없습니다. 예매 페이지로 이동하시겠습니까? (Y/N)");
 				while(true) {
 					System.out.print(">>>");
 					String userAnswer = rd.readLine().toLowerCase();
@@ -44,6 +44,8 @@ public class MyreserveServer {
 						CancelServer.serverRun();
 						break;
 					} else if(userAnswer.equals("n")) {
+						Coloring.purpleOut("취소페이지로 이동하지 못했습니다. 메인으로 이동합니다.");
+						Thread.sleep(1500);
 						ConsoleUtil.showCommand();
 						break;
 					} else {

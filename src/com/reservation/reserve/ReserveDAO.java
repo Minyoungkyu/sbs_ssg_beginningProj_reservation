@@ -4,8 +4,8 @@ import java.sql.*;
 import java.util.HashSet;
 
 import com.reservation.console.Coloring;
+import com.reservation.data.user.User;
 import com.reservation.myreserve.MyreserveDAO;
-import com.reservation.user.User;
 
 public class ReserveDAO {
 	Connection con;

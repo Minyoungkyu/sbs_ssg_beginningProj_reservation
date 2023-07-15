@@ -5,8 +5,8 @@ import java.sql.*;
 
 import com.reservation.console.Coloring;
 import com.reservation.console.ConsoleUtil;
+import com.reservation.data.user.User;
 import com.reservation.myreserve.MyreserveDAO;
-import com.reservation.user.User;
 
 public class CancelDAO {
 	Connection con;
@@ -54,6 +54,7 @@ public class CancelDAO {
 				StringBuilder startWhen = MyreserveDAO.trimDateAndTime(rs.getString(7), DayOfWeek);
 				String seatType = rs.getString(2);
 				int seatBlock = rs.getInt(3);
+				Thread.sleep(1000);
 				Coloring.purpleOut("정말로 다음의 예매를 취소하시겠습니까? (Y/N)");
 				System.out
 					.println("---------------------------------------------------------------------------------------");
@@ -69,7 +70,7 @@ public class CancelDAO {
 					.print("---------------------------------------------------------------------------------------\n");
 				break;
 			} catch(Exception e) {
-				System.out.print(Coloring.red + "해당 번호로 조회한 예매가 존재하지 않습니다.\n" + Coloring.exit + "다시 입력해 주십시오.\n >>>");
+				Coloring.redOut("해당 번호로 조회한 예매가 존재하지 않습니다. 다시 입력해 주십시오.\n >>>");
 			}
 		}
 		String cancelReservationSQL = 
@@ -80,16 +81,16 @@ public class CancelDAO {
 			String answer = rd.readLine().toLowerCase();
 			if(answer.equals("y")){
 				state.executeUpdate(cancelReservationSQL);
-				Coloring.purpleOut("예매 취소가 완료되었습니다. 감사합니다.");
+				Coloring.greenOut("예매 취소가 완료되었습니다. 감사합니다.");
 				break;
 			} else if(answer.equals("n")){
-				Coloring.greenOut("예매를 취소하지 못했습니다. 메인으로 이동합니다.");
+				Coloring.purpleOut("예매를 취소하지 못했습니다. 메인으로 이동합니다.");
 				break;
 			} else {
 				Coloring.redOut("올바른 명령어가 아닙니다. 다시 입력해 주십시오.");
 			}
 		}
-		Thread.sleep(1000);
+		Thread.sleep(1500);
 		ConsoleUtil.showCommand();
 	}
 }

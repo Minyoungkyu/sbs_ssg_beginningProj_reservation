@@ -9,7 +9,7 @@ public class Main {
 		try {
 			CLI.CLIrun();
 		} catch(IOException e) {
-			System.out.println("IOE: " + e);
+			System.out.println("main method throw IOException: " + e);
 		}
 	}
 }

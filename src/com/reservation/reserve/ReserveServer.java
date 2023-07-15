@@ -1,9 +1,6 @@
 package com.reservation.reserve;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.sql.SQLException;
+import java.io.*;
 import java.util.HashSet;
 
 import com.reservation.console.Coloring;

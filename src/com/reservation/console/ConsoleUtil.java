@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.HashSet;
 
 public class ConsoleUtil {
+
 	public static String commandList = Coloring.cyan
 		+ "좌석 예매:		reserve\n"
 		+ Coloring.exit
@@ -16,6 +17,10 @@ public class ConsoleUtil {
 		+ "-----------------------------------------\n"
 		+ Coloring.cyan
 		+ "좌석 예매 취소:	myreserve -> 취소 페이지로 이동\n"
+		+ Coloring.exit
+		+ "-----------------------------------------\n"
+		+ Coloring.cyan
+		+ "선호구단 정보 변경:	myclub\n"
 		+ Coloring.exit
 		+ "-----------------------------------------\n"
 		+ Coloring.cyan
@@ -34,13 +39,13 @@ public class ConsoleUtil {
 		System.out.println("\n\n" + commandList);
 		System.out.print("\n>>> ");
 	}
-	
+
 	public static int receiveNaturalNumber() {
 		BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
-		while(true){
+		while(true) {
 			try {
 				int num = Integer.parseInt(rd.readLine());
-				if(num <= 0){
+				if(num <= 0) {
 					throw new NumberFormatException();
 				}
 				return num;
@@ -48,6 +53,23 @@ public class ConsoleUtil {
 				Coloring.redOut("0보다 큰 정수를 입력하여 주십시오.");
 			} catch(IOException e) {
 				System.out.println("ConsoleUtil.receiveNaturalNumber throw IOException!");
+			}
+		}
+	}
+	
+	public static int receiveCustomRangeNum(int start, int end) {
+		BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
+		while(true) {
+			try {
+				int num = Integer.parseInt(rd.readLine());
+				if(num < start || num > end) {
+					throw new NumberFormatException();
+				}
+				return num;
+			} catch(NumberFormatException e) {
+				Coloring.redOut("올바른 범위의 수를 입력하여 주십시오.");
+			} catch(IOException e) {
+				System.out.println("ConsoleUtil.receiveCustomRangeNum throw IOException!: " + e);
 			}
 		}
 	}
@@ -61,10 +83,10 @@ public class ConsoleUtil {
 		seatTypeSet.add("red");
 		seatTypeSet.add("navy");
 		seatTypeSet.add("green");
-		while(true){
+		while(true) {
 			try {
 				String seatType = rd.readLine().toLowerCase();
-				if(!seatTypeSet.contains(seatType)){
+				if(!seatTypeSet.contains(seatType)) {
 					throw new NumberFormatException();
 				}
 				return seatType;
@@ -73,6 +95,4 @@ public class ConsoleUtil {
 			}
 		}
 	}
-
-
 }
