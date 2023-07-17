@@ -73,17 +73,16 @@ public class CancelDAO {
 				Coloring.redOut("해당 번호로 조회한 예매가 존재하지 않습니다. 다시 입력해 주십시오.\n >>>");
 			}
 		}
-		String cancelReservationSQL = 
-			"DELETE FROM reservation.reservations\n"
-				+ "WHERE reservationID = " + reservationID;
-		while(true){
+		String cancelReservationSQL = "DELETE FROM reservation.reservations\n"
+			+ "WHERE reservationID = " + reservationID;
+		while(true) {
 			System.out.print(">>>");
 			String answer = rd.readLine().toLowerCase();
-			if(answer.equals("y")){
+			if(answer.equals("y")) {
 				state.executeUpdate(cancelReservationSQL);
 				Coloring.greenOut("예매 취소가 완료되었습니다. 감사합니다.");
 				break;
-			} else if(answer.equals("n")){
+			} else if(answer.equals("n")) {
 				Coloring.purpleOut("예매를 취소하지 못했습니다. 메인으로 이동합니다.");
 				break;
 			} else {
@@ -94,14 +93,3 @@ public class CancelDAO {
 		ConsoleUtil.showCommand();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-

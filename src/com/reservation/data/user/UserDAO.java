@@ -35,12 +35,10 @@ public class UserDAO {
 		}
 	}
 	
-	
 	public String getPreferredClubName(int userId) {
 		UserDAO dao = new UserDAO();
 		return Club.clubs.get(dao.getPreferredClubNum(userId)-1).name;
 	}
-	
 	
 	public boolean checkUserRegistrationData(int userId) {
 		try {
