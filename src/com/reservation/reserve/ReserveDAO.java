@@ -152,7 +152,7 @@ public class ReserveDAO {
 		return null;
 	}
 
-	public void selectSeat(int game_id, String seatType, int seatBlock) {
+	public void addNewReservation(int game_id, String seatType, int seatBlock) {
 		String addReservationSQL = String.format(
 			"INSERT INTO reservation.reservations (gameID, seatType, seatBlock, userID) "
 				+ "VALUES (%d, '%s', %d, %d)",

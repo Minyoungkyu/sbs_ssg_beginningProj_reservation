@@ -18,7 +18,7 @@ public class CLI {
 		while(!(userCommand = rd.readLine()).equals("exit")) {
 			switch(userCommand) {
 			case "reserve":
-				ReserveServer.serverRun();
+				ReserveModule.moduleRun();
 				break;
 
 			case "myreserve":

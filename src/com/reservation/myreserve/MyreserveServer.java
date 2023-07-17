@@ -7,7 +7,7 @@ import com.reservation.cancel.CancelServer;
 import com.reservation.console.Coloring;
 import com.reservation.console.ConsoleUtil;
 import com.reservation.data.user.User;
-import com.reservation.reserve.ReserveServer;
+import com.reservation.reserve.ReserveModule;
 
 public class MyreserveServer {
 	static MyreserveDAO dao = new MyreserveDAO();
@@ -26,7 +26,7 @@ public class MyreserveServer {
 					System.out.print(">>>");
 					String userAnswer = rd.readLine().toLowerCase();
 					if(userAnswer.equals("y")) {
-						ReserveServer.serverRun();
+						ReserveModule.moduleRun();
 						break;
 					} else if(userAnswer.equals("n")) {
 						ConsoleUtil.showCommand();

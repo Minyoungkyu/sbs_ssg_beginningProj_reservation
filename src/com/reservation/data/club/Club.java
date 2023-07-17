@@ -62,4 +62,31 @@ public enum Club {
 		+ "------------------\n"
 		+ Coloring.getCyan("한화 이글스:	10\n")
 		+ "------------------";
+	
+	public static Club getClubByNum(int clubNum) {
+		switch(clubNum){
+		case 1:
+			return SSG;
+		case 2:
+			return KIWOOM;
+		case 3:
+			return LG;
+		case 4:
+			return KT;
+		case 5:
+			return KIA;
+		case 6:
+			return NC;
+		case 7:
+			return SAMSUNG;
+		case 8:
+			return LOTTE;
+		case 9:
+			return DOOSAN;
+		case 10:
+			return HANWHA;
+		default:
+			return null;
+		}
+	}
 }
