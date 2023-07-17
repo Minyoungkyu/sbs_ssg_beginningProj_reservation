@@ -7,7 +7,6 @@ public class Coloring {
     public static final String blue     = "\u001B[34m" ;
     public static final String purple   = "\u001B[35m" ;
     public static final String cyan     = "\u001B[36m" ;
-
     public static final String exit     = "\u001B[0m" ;
     
     public static void redOut(String text) {

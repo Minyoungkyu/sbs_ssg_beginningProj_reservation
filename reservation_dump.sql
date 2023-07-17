@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `reservation` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `reservation`;
 -- MySQL dump 10.13  Distrib 8.0.33, for macos13 (x86_64)
 --
 -- Host: localhost    Database: reservation
@@ -27,14 +29,14 @@ CREATE TABLE `games` (
   `name` varchar(45) NOT NULL,
   `stadium` varchar(45) NOT NULL,
   `dateAndTime` datetime NOT NULL,
-  `premium` int DEFAULT NULL,
-  `table` int DEFAULT NULL,
-  `blue` int DEFAULT NULL,
-  `red` int DEFAULT NULL,
-  `navy` int DEFAULT NULL,
-  `green` int DEFAULT NULL,
+  `premium` int DEFAULT '264',
+  `table` int DEFAULT '502',
+  `blue` int DEFAULT '2373',
+  `red` int DEFAULT '6399',
+  `navy` int DEFAULT '10112',
+  `green` int DEFAULT '5813',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +45,7 @@ CREATE TABLE `games` (
 
 LOCK TABLES `games` WRITE;
 /*!40000 ALTER TABLE `games` DISABLE KEYS */;
-INSERT INTO `games` VALUES (1,'LG트윈스 vs 한화이글스','잠실야구장','2023-07-29 14:25:00',261,502,2370,6398,10112,5812),(2,'SSG 랜더스 vs 두산베어스','인천 SSG 랜더스 필드','2023-07-24 15:45:00',3,203,349,2034,6002,3466),(3,'KIA 타이거즈 vs 삼성 라이온즈','KIA 챔피언스필드','2023-07-22 14:00:00',34,273,2100,5323,2323,3432),(4,'KIA 타이거즈 vs 두산베어스','KIA 챔피언스필드','2023-07-25 16:30:00',234,402,343,3432,3534,2235),(5,'kt wiz vs 롯데 자이언츠','수원 케이티 위즈 파크','2023-07-15 14:20:00',115,233,453,823,4234,5434);
+INSERT INTO `games` VALUES (1,'LG트윈스 vs 한화이글스','잠실야구장','2023-07-29 14:25:00',261,502,2370,6398,10112,5811),(2,'SSG 랜더스 vs 두산베어스','인천 SSG 랜더스 필드','2023-07-24 15:45:00',3,203,349,2034,6002,3466),(3,'KIA 타이거즈 vs 삼성 라이온즈','KIA 챔피언스필드','2023-07-22 14:00:00',34,273,2100,5323,2323,3432),(4,'KIA 타이거즈 vs 두산베어스','KIA 챔피언스필드','2023-07-25 15:30:00',234,402,342,3432,3534,2235),(5,'kt wiz vs 롯데 자이언츠','수원 케이티 위즈 파크','2023-07-16 14:20:00',115,233,453,823,4234,5434),(6,'키움 히어로즈 vs LG 트윈스','고척 스카이돔','2023-07-17 14:20:00',264,502,2373,6399,10112,5813),(7,'NC 다이노스 vs 두산 베어스','창원 NC 파크','2023-07-17 13:00:00',264,502,2373,6399,10112,5813),(8,'삼성 라이온즈 vs 롯데 자이언츠','사직 야구장','2023-07-18 16:30:00',264,502,2373,6399,10112,5813),(9,'롯데 자이언츠 vs 한화 이글스','대전 한화생명 이글스파크','2023-07-29 16:30:00',264,502,2373,6399,10112,5813);
 /*!40000 ALTER TABLE `games` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,7 +63,7 @@ CREATE TABLE `reservations` (
   `seatBlock` int DEFAULT NULL,
   `userID` int DEFAULT NULL,
   PRIMARY KEY (`reservationID`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +72,7 @@ CREATE TABLE `reservations` (
 
 LOCK TABLES `reservations` WRITE;
 /*!40000 ALTER TABLE `reservations` DISABLE KEYS */;
-INSERT INTO `reservations` VALUES (2,1,'blue',220,34),(4,1,'green',401,1),(6,1,'premium',0,344),(7,1,'red',219,2),(9,1,'blue',216,304),(10,1,'navy',320,453),(11,1,'table',213,233),(12,1,'navy',304,24),(13,1,'navy',302,3),(14,1,'red',220,1),(16,1,'green',401,1),(17,1,'table',110,2),(18,1,'blue',107,1),(19,1,'blue',107,1),(20,1,'premium',0,1),(21,5,'table',112,2),(23,2,'premium',0,1),(24,2,'table',100,1),(26,3,'red',101,1),(27,2,'navy',334,1),(28,3,'red',101,1),(29,5,'table',110,6),(31,1,'red',101,1);
+INSERT INTO `reservations` VALUES (2,1,'blue',220,34),(4,1,'green',401,1),(6,1,'premium',0,344),(7,1,'red',219,2),(9,1,'blue',216,304),(10,1,'navy',320,453),(11,1,'table',213,233),(12,1,'navy',304,24),(13,1,'navy',302,3),(14,1,'red',220,1),(16,1,'green',401,1),(17,1,'table',110,2),(18,1,'blue',107,1),(19,1,'blue',107,1),(20,1,'premium',0,1),(21,5,'table',112,2),(23,2,'premium',0,1),(24,2,'table',100,1),(26,3,'red',101,1),(27,2,'navy',334,1),(28,3,'red',101,1),(29,5,'table',110,6),(31,1,'red',101,1),(32,4,'blue',107,1),(33,1,'green',401,1);
 /*!40000 ALTER TABLE `reservations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,4 +136,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-17  9:11:52
+-- Dump completed on 2023-07-17 13:32:45

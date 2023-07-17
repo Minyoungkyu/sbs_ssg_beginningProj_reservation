@@ -73,6 +73,23 @@ public class ConsoleUtil {
 			}
 		}
 	}
+	
+	public static int receiveContainedNum(HashSet<Integer> set) {
+		BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
+		while(true) {
+			try {
+				int num = Integer.parseInt(rd.readLine());
+				if(!set.contains(num)) {
+					throw new NumberFormatException();
+				}
+				return num;
+			} catch(NumberFormatException e) {
+				Coloring.redOut("올바른 범위의 수를 입력하여 주십시오.");
+			} catch(IOException e) {
+				System.out.println("ConsoleUtil.receiveCustomRangeNum throw IOException!: " + e);
+			}
+		}
+	}
 
 	public static String receiveSeatType() {
 		BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
@@ -92,6 +109,21 @@ public class ConsoleUtil {
 				return seatType;
 			} catch(Exception e) {
 				Coloring.redOut("올바른 좌석 유형을 입력해 주십시오.");
+			}
+		}
+	}
+
+	public static boolean receiveYesOrNo() throws IOException {
+		BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
+		while(true) {
+			System.out.print(">>>");
+			String userAnswer = rd.readLine().toLowerCase();
+			if(userAnswer.equals("y")) {
+				return true;
+			} else if(userAnswer.equals("n")) {
+				return false;
+			} else {
+				Coloring.redOut("유효하지 않은 답변입니다. 다시 입력해주십시오.\n");
 			}
 		}
 	}

@@ -22,11 +22,10 @@ public class ReserveDAO {
 		}
 	}
 
-	public void showGameList() {
-		String loadGamesSQL = "SELECT *, DAYOFWEEK(dateAndTime) As part \n"
-			+ "FROM reservation.games ORDER BY dateAndTime ASC;";
+	public HashSet<Integer> showGameList(String SQL) {
 		try {
-			ResultSet rs = state.executeQuery(loadGamesSQL);
+			HashSet<Integer> gameIdSet = new HashSet<>();
+			ResultSet rs = state.executeQuery(SQL);
 			System.out
 				.println("--------------------------------------------------------------------------------------");
 			while(rs.next()) {
@@ -37,11 +36,14 @@ public class ReserveDAO {
 					.valueOf(MyreserveDAO.trimDateAndTime(dateAndTime, MyreserveDAO.getDayOfWeek(rs.getInt(11)))));
 				System.out
 					.println("--------------------------------------------------------------------------------------");
+			gameIdSet.add(rs.getInt(1));
 			}
 			rs.close();
+			return gameIdSet;
 		} catch(SQLException e) {
 			System.out.println("SQLException!: " + e);
 		}
+		return null;
 	}
 
 	public void showSeatList(int game_id) {

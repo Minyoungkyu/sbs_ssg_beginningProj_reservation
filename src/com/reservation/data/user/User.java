@@ -9,8 +9,8 @@ import com.reservation.console.ConsoleUtil;
 import com.reservation.data.club.Club;
 
 public class User {
-	static int id;
-	static Club preferredClub;
+	public static int id;
+	public static Club preferredClub;
 
 	public static void setID(int id) {
 		User.id = id;
@@ -32,6 +32,7 @@ public class User {
 		while(true){
 			if(canLogin){ 
 				Club preferred = Club.clubs.get(dao.getPreferredClubNum(userId)-1);
+				User.preferredClub = preferred;
 				Thread.sleep(800);
 				System.out.println("-------------------------------\n"
 					+ Coloring.getGreen("로그인 성공, " + userId + "번 회원님, 환영합니다.") 
@@ -55,7 +56,7 @@ public class User {
 		Coloring.greenOut("현재 등록된 선호구단: " + dao.getPreferredClubName(User.id));
 		Thread.sleep(1000);
 		//
-		Coloring.cyanOut("정말로 선호 구단을 변경하시겠습니까? (Y/N)");
+		Coloring.cyanOut("선호 구단을 변경하시겠습니까? (Y/N)");
 		while(true) {
 			System.out.print(">>>");
 			String userAnswer = rd.readLine().toLowerCase();

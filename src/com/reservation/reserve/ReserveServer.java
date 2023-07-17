@@ -5,47 +5,61 @@ import java.util.HashSet;
 
 import com.reservation.console.Coloring;
 import com.reservation.console.ConsoleUtil;
+import com.reservation.data.user.User;
 
 public class ReserveServer {
 	static BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
 
 	public static void serverRun() throws IOException, InterruptedException {
 		ReserveDAO dao = new ReserveDAO();
-//		######  Field: needed to create new reservation(userID is already defined in class User.)
+		// ###### Field: needed to create new reservation(userID is already defined in
+		// class User.)
 		int gameID;
 		String seatType;
 		int seatBlock;
-//		################################################################################
-		
-		dao.showGameList();
+		HashSet<Integer> gameIdSet;
+
+		Coloring.greenOut("선호하는 팀의 경기 일정만을 보시겠습니까? (Y/N)\n (N을 입력하시면 전체 일정을 봅니다.)");
+		if(ConsoleUtil.receiveYesOrNo()) {
+			Coloring.purpleOut("선호 팀: " + User.preferredClub.name + "의 경기 정보 불러오는 중..");
+			Thread.sleep(1000);
+			String selectPreferredGamesSQL = String.format("SELECT *, DAYOFWEEK(dateAndTime) As part FROM reservation.games WHERE name LIKE '%%%s%%'", User.preferredClub.name);
+			gameIdSet = dao.showGameList(selectPreferredGamesSQL);
+		} else {
+			Coloring.purpleOut("예매 가능한 전체 경기 일정 불러오는 중..");
+			Thread.sleep(1000);
+			String selectAllGamesSQL = "SELECT *, DAYOFWEEK(dateAndTime) As part FROM reservation.games ORDER BY dateAndTime ASC";
+			gameIdSet = dao.showGameList(selectAllGamesSQL);
+		}
+		//
 		System.out.print(Coloring.getGreen(
 			"관람을 원하시는 경기를 선택하시고, 해당 경기의 \'게임번호\'를 입력하여 주십시오.\n") + "게임번호:");
-		
+
 		// gameID = 경기 번호를 선택하고 좌석 선택 페이지로 이동.
-		gameID = ConsoleUtil.receiveNaturalNumber();
+		gameID = ConsoleUtil.receiveContainedNum(gameIdSet);
 		System.out.println("\n" + gameID + "번 경기를 선택하셨습니다. \n관람을 원하시는 좌석을 선택하여 주십시오.");
 		dao.showSeatList(gameID);
-		
+
 		// 원하는 좌석을 선택하고 블럭 선택 페이지로 이동.
 		System.out.print("예매를 원하시는 좌석의 종류를 영문으로 입력하여 주십시오.(대소문자를 구분하지 않습니다.)\n\n좌석종류 입력: ");
 		seatType = ConsoleUtil.receiveSeatType();
-		
-		//블럭 선택.
+
+		// 블럭 선택.
 		HashSet<Integer> seatBlockSeat = dao.showSeatBlock(seatType);
 		seatBlock = 0; // premium석 선택한 경우 기본값인 0을 seatBlock번호로 가지고 진입.
 		if(!seatType.equals("premium")) {
 			System.out.println(seatType + "석 블럭중, 관람을 원하시는 블럭 번호를 입력하여 주십시오.");
-			while(true){
+			while(true) {
 				System.out.print("블럭번호: ");
 				seatBlock = ConsoleUtil.receiveNaturalNumber();
-				if(seatBlockSeat.contains(seatBlock)){
+				if(seatBlockSeat.contains(seatBlock)) {
 					break;
 				} else {
 					Coloring.redOut("예매 가능한 블럭 번호가 아닙니다. 다시 입력해 주십시오.");
 				}
 			}
 		}
-		
+
 		// 선택한 예매 정보를 종합하여 update 쿼리로 전달.
 		dao.selectSeat(gameID, seatType, seatBlock);
 		Thread.sleep(300);
