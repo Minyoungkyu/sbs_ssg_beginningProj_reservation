@@ -7,9 +7,9 @@ import com.reservation.console.Coloring;
 public enum Club {
 	SSG(1, "SSG 랜더스", "인천 SSG 랜더스필드"),
 	KIWOOM(2, "키움 히어로즈", "고척 스카이돔"),
-	LG(3, "LG 트윈스", "서울종합운동장 야구장"),
+	LG(3, "LG 트윈스", "잠실야구장"),
 	KT(4, "KT wiz", "수원 케이티 위즈 파크"),
-	KIA(5, "KIA 타이거즈", "광주-기아 챔피언스 필드"),
+	KIA(5, "KIA 타이거즈", "KIA 챔피언스필드"),
 	NC(6, "NC 다이노스", "창원 NC 파크"),
 	SAMSUNG(7, "삼성 라이온즈", "대구 삼성 라이온즈 파크"),
 	LOTTE(8, "롯데 자이언츠", "사직 야구장"),
@@ -19,7 +19,6 @@ public enum Club {
 	public int clubNum;
 	public String name;
 	public String home;
-	
 	
 	Club(int clubNum, String name, String home){
 		this.clubNum = clubNum;

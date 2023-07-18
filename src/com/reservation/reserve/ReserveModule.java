@@ -1,10 +1,13 @@
 package com.reservation.reserve;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import com.reservation.console.Coloring;
 import com.reservation.console.ConsoleUtil;
+import com.reservation.console.GameCalendar;
+import com.reservation.console.SQL;
 import com.reservation.data.user.User;
 
 public class ReserveModule {
@@ -13,10 +16,12 @@ public class ReserveModule {
 
 	public static void moduleRun() throws IOException, InterruptedException {
 
-		Games.showGameList(dao);
-		Games.choiceGame();
-
-		System.out.println("\n" + Games.gameId + "번 경기를 선택하셨습니다.");
+		boolean show_preferred_game_schedule = Games.showGameList(dao);
+		if(show_preferred_game_schedule){
+			Games.choiceGamebyDay();						
+		} else {
+			Games.choiceGamebyId();			
+		}
 		
 		Seats.choiceSeatType(dao);
 		Seats.choiceSeatBlock(dao);
@@ -33,31 +38,38 @@ public class ReserveModule {
 }
 
 class Games {
-	private static HashSet<Integer> gameIdSet;
-	static String selectPreferredGamesSQL = String.format(
-		"SELECT *, DAYOFWEEK(dateAndTime) As part FROM reservation.games WHERE name LIKE '%%%s%%'",
-		User.preferredClub.name);
-	static String selectAllGamesSQL = "SELECT *, DAYOFWEEK(dateAndTime) As part FROM reservation.games ORDER BY dateAndTime ASC";
+	public static HashSet<Integer> gameIdSet;
+	public static HashMap<Integer,Integer> game_id_map;
 	public static int gameId;
 
-	public static void showGameList(ReserveDAO dao) throws IOException, InterruptedException {
+	public static boolean showGameList(ReserveDAO dao) throws IOException, InterruptedException {
 		Coloring.greenOut("선호하는 팀의 경기 일정만을 보시겠습니까? (Y/N)\n (N을 입력하시면 전체 일정을 봅니다.)");
-		if(ConsoleUtil.receiveYesOrNo()) {
+		boolean user_answer = ConsoleUtil.receiveYesOrNo();
+		if(user_answer) {
 			Coloring.purpleOut("선호 팀: " + User.preferredClub.name + "의 경기 정보 불러오는 중..");
 			Thread.sleep(1000);
-			gameIdSet = dao.showGameList(selectPreferredGamesSQL);
+			game_id_map = GameCalendar.showCalendar();
 		} else {
 			Coloring.purpleOut("예매 가능한 전체 경기 일정 불러오는 중..");
 			Thread.sleep(1000);
-			gameIdSet = dao.showGameList(selectAllGamesSQL);
+			gameIdSet = dao.showGameList(SQL.select_all_games_SQL);
 		}
+		// 선호하는 팀의 경기 일정만을 본 경우, true return.
+		return user_answer;
 	}
 
-	public static void choiceGame() {
+	public static void choiceGamebyId() {
 		System.out.print(Coloring.getGreen(
 			"관람을 원하시는 경기를 선택하시고, 해당 경기의 \'게임번호\'를 입력하여 주십시오.\n") + "게임번호:");
 		gameId = ConsoleUtil.receiveContainedNum(gameIdSet);
 
+	}
+	public static void choiceGamebyDay() {
+		System.out.print(Coloring.getGreen(
+			"관람을 원하시는 경기의 \'날짜(일)\'를 입력하여 주십시오.\n") + "일:");
+		int game_day = ConsoleUtil.receiveContainedNum(new HashSet<Integer>(game_id_map.keySet()));
+		gameId = game_id_map.get(game_day);
+		
 	}
 }
 
