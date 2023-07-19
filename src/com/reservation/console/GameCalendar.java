@@ -167,8 +167,8 @@ class GameCalendarDAO {
 	public GameCalendarDAO() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			String url = "jdbc:mysql://localhost:3306/?user=root";
-			con = DriverManager.getConnection(url, "root", "dlqhfka");
+			String url = "jdbc:mysql://localhost:3306/reservation";
+			con = DriverManager.getConnection(url, "root", "qkqh134679258");
 			state = con.createStatement();
 		} catch(Exception e) {
 			Coloring.redOut("DB connection Exception: " + e.getMessage());

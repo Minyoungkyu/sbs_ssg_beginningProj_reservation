@@ -15,9 +15,9 @@ public class UserDAO {
 	static BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
 
 	public UserDAO() {
-		String url = "jdbc:mysql://localhost:3306/?user=root";
+		String url = "jdbc:mysql://localhost:3306/reservation";
 		try {
-			con = DriverManager.getConnection(url, "root", "dlqhfka");
+			con = DriverManager.getConnection(url, "root", "qkqh134679258");
 			state = con.createStatement();
 		} catch(Exception e) {
 			e.getMessage();
